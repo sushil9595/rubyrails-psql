@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: myapp
+        image: "docker.io/sushil9595/railsapp:3.10"  # Replace with your application image
+        ports:
+        - containerPort: 3000  # Adjust according to your application's port
+        env:
+        - name: RAILS_ENV
+          value: production
+        - name: POSTGRES_DB
+          value: mydatabase
+        - name: POSTGRES_USER
+          value: myuser
+        - name: POSTGRES_PASSWORD
+          value: password
+        - name: RAILS_MASTER_KEY
+          value: 8af814b3e08d9e263c6635f231fc541f
+        - name: POSTGRES_HOST
+          value: postgres
+
+        imagePullPolicy: Never
